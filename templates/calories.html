@@ -1,0 +1,12 @@
+
+<h2>Calorie Tracker</h2>
+<form method="post">
+  Date: <input type="date" name="date"><br>
+  Food: <input name="food"><br>
+  Calories: <input type="number" name="amount"><br>
+  <button type="submit">Add</button>
+</form>
+<table border="1">
+<tr><th>Date</th><th>Food</th><th>Calories</th></tr>
+{% for row in entries %}<tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td></tr>{% endfor %}
+</table>

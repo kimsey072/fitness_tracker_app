@@ -1,0 +1,8 @@
+
+<h2>BMI Calculator</h2>
+<form method="post">
+  Weight (kg): <input name="weight" step="any"><br>
+  Height (cm): <input name="height" step="any"><br>
+  <button type="submit">Calculate</button>
+</form>
+{% if bmi %}<p>Your BMI is: {{ bmi }}</p>{% endif %}

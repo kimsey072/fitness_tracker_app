@@ -1,0 +1,8 @@
+
+<h2>Workout History</h2>
+<table border="1">
+  <tr><th>Date</th><th>Exercise</th><th>Duration</th><th>Calories</th></tr>
+  {% for row in workouts %}
+    <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
+  {% endfor %}
+</table>
