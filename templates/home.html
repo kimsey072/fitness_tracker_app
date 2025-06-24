@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Fitness Tracker{% endblock %}
+
+{% block content %}
+<h2>Welcome to Your Dashboard</h2>
+<div class="dashboard">
+  <div class="section card-bmi">
+    <h3><i class="fas fa-weight"></i> BMI Calculator</h3>
+    <p>Check your Body Mass Index.</p>
+    <a href="{{ url_for('bmi') }}" class="btn">Calculate BMI</a>
+  </div>
+  <div class="section card-workout">
+    <h3><i class="fas fa-running"></i> Log Workout</h3>
+    <p>Track your daily workout and calories burned.</p>
+    <a href="{{ url_for('log_workout') }}" class="btn">Log Workout</a>
+  </div>
+  <div class="section card-calories">
+    <h3><i class="fas fa-apple-alt"></i> Track Calories</h3>
+    <p>Record your daily food intake.</p>
+    <a href="{{ url_for('calorie_tracker') }}" class="btn">Log Food</a>
+  </div>
+  <div class="section card-history">
+    <h3><i class="fas fa-history"></i> Workout History</h3>
+    <p>View your past logged workouts.</p>
+    <a href="{{ url_for('history') }}" class="btn">View History</a>
+  </div>
+</div>
+{% endblock %}

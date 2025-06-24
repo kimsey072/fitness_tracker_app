@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Fitness Tracker{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-light: #f0f4f8;
+      --bg-dark: #1a202c;
+      --text-light: #333;
+      --text-dark: #f0f4f8;
+      --primary: #2b6cb0;
+      --primary-dark: #1a4369;
+      --card-1: #cce5ff;
+      --card-2: #d4edda;
+      --card-3: #fff3cd;
+      --card-4: #f8d7da;
+    }
+
+    [data-theme="dark"] {
+      --bg-light: #1a202c;
+      --text-light: #f0f4f8;
+      --card-1: #2c5282;
+      --card-2: #2f855a;
+      --card-3: #b7791f;
+      --card-4: #c53030;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      display: flex;
+      min-height: 100vh;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 0.5rem 0;
+      display: block;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    .sidebar .bottom {
+      margin-top: auto;
+    }
+
+    .main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: flex-start;
+    }
+
+    .section {
+      flex: 1 1 220px;
+      max-width: 300px;
+      padding: 1.5rem;
+      border-radius: 12px;
+      min-height: 180px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      color: #000;
+      transition: transform 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-bmi {
+      background-color: var(--card-1);
+    }
+
+    .card-workout {
+      background-color: var(--card-2);
+    }
+
+    .card-calories {
+      background-color: var(--card-3);
+    }
+
+    .card-history {
+      background-color: var(--card-4);
+    }
+
+    .section h3 {
+      margin-top: 0;
+    }
+
+    a.btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      background-color: var(--primary-dark);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    a.btn:hover {
+      background-color: #12283a;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      margin-top: auto;
+      color: #888;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar a {
+        margin: 0 0.5rem;
+      }
+
+      .main {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div>
+      <h1>Fitness App</h1>
+      {% if session.user_id %}
+      <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="{{ url_for('bmi') }}"><i class="fas fa-weight"></i> BMI</a>
+      <a href="{{ url_for('log_workout') }}"><i class="fas fa-dumbbell"></i> Log Workout</a>
+      <a href="{{ url_for('calorie_tracker') }}"><i class="fas fa-apple-alt"></i> Calories</a>
+      <a href="{{ url_for('history') }}"><i class="fas fa-history"></i> History</a>
+      <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      {% else %}
+      <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Register</a>
+      {% endif %}
+      <button class="toggle-btn" onclick="toggleTheme()">🌓 Toggle</button>
+    </div>
+    <footer>&copy; {{ year }} David's Fitness Tracker</footer>
+  </div>
+
+  <div class="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    }
+  </script>
+</body>
+
+</html>
