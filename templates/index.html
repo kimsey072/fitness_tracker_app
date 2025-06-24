@@ -1,17 +1,104 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Dashboard</title></head>
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 1s ease-in;
+    }
+
+    header,
+    footer {
+      background-color: #2b6cb0;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      animation: slideUp 0.7s ease-out;
+    }
+
+    h1,
+    h2 {
+      color: #2b6cb0;
+    }
+
+    button,
+    input[type="submit"] {
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover,
+    input[type="submit"]:hover {
+      background-color: #1a4369;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
 
 <body>
-<h1>Welcome to Fitness Tracker</h1>
-<nav>
-  <a href="/log_workout">Log Workout</a> |
-  <a href="/history">Workout History</a> |
-  <a href="/bmi">BMI Calculator</a> |
-  <a href="/calories">Calorie Tracker</a> |
-  <a href="/logout">Logout</a>
-</nav>
+  <header>
+    <h1>Fitness Tracker</h1>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    &copy; {{ year }} Fitness Tracker App by David
+  </footer>
 </body>
+
 </html>
